@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="add_meeting_positions">
+        <item>Room1</item>
+        <item>Room2</item>
+        <item>Room3</item>
+        <item>Room4</item>
+    </string-array>
+</resources>
