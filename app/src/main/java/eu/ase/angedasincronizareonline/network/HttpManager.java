@@ -22,7 +22,7 @@ public class HttpManager extends
     protected String doInBackground(String... strings) {
         StringBuilder result = new StringBuilder();
         try {
-            url = new URL(strings[0]);// primul element este url
+            url = new URL(strings[0]);
             connection = (HttpURLConnection) url.openConnection();
             inputStream = connection.getInputStream();
             inputStreamReader = new InputStreamReader(inputStream);

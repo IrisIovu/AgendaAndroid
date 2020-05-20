@@ -9,21 +9,19 @@
             android:icon="@drawable/ic_menu_camera"
             android:title="@string/menu_home" />
         <item
-            android:id="@+id/main_nav_transfer_market"
+            android:id="@+id/MeetingInfo"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/main_nav_transfer_market" />
+            android:title="@string/MeetingInformation" />
+
+
         <item
-            android:id="@+id/main_nav_about"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/main_nav_about" />
-        <item
-            android:id="@+id/main_nav_view_meetings"
+            android:id="@+id/main_nav_list_events"
             android:icon="@drawable/ic_menu_manage"
-            android:title="@string/main_nav_view_meetings_by_date" />
+            android:title="@string/list_Events" />
         <item
-            android:id="@+id/main_nav_list_meetings"
+            android:id="@+id/main_nav_vizualizareproiecte"
             android:icon="@drawable/ic_menu_manage"
-            android:title="@string/list_meetings" />
+            android:title="@string/vizualizareproiecte" />
     </group>
 
 </menu>

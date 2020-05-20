@@ -4,64 +4,56 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.TransferMarketFragment">
+    tools:context=".fragment.MeetingInfoJsonFragment">
 
-    <Button
-        android:id="@+id/transfer_market_btn_Room1"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.31"
-        android:text="@string/room_1"
-        android:textAllCaps="false"
-        app:layout_constraintEnd_toStartOf="@id/transfer_market_btn_Room2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/transfer_market_btn_Room2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.23"
-        android:text="@string/room_2"
-        android:textAllCaps="false"
-        app:layout_constraintEnd_toStartOf="@id/transfer_market_btn_Room3"
-        app:layout_constraintStart_toEndOf="@id/transfer_market_btn_Room1"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/transfer_market_btn_Room3"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.23"
-        android:text="@string/room_3"
-        android:textAllCaps="false"
-        app:layout_constraintEnd_toStartOf="@id/transfer_market_btn_Room4"
-        app:layout_constraintStart_toEndOf="@id/transfer_market_btn_Room2"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/transfer_market_btn_Room4"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.23"
-        android:text="@string/room_4"
-        android:textAllCaps="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/transfer_market_btn_Room3"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <ListView
         android:id="@+id/transfer_market_lv_response"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_width="402dp"
+        android:layout_height="531dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.482"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/Alegecamera"
+        android:layout_width="113dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/transfer_market_lv_response"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.945"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/transfer_market_btn_Room1" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.298" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="243dp"
+        android:layout_height="72dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:text="@string/AlegeRoom"
+        app:layout_constraintBottom_toTopOf="@+id/transfer_market_lv_response"
+        app:layout_constraintEnd_toStartOf="@+id/Alegecamera"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.348" />
+
+    <Button
+        android:id="@+id/btn_AlegeCamera"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Alege"
+        app:layout_constraintBottom_toTopOf="@+id/transfer_market_lv_response"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Alegecamera" />
 </androidx.constraintlayout.widget.ConstraintLayout>

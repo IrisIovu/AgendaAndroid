@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddEvent">
+
+
+    <ScrollView
+        android:layout_width="409dp"
+        android:layout_height="729dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginLeft="1dp"
+        android:layout_marginTop="1dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="411dp"
+                android:layout_height="73dp"
+                android:background="#65FF9800"
+                android:text="@string/Adaugaeveniment"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                app:drawableTint="#FFEB3B"/>
+
+            <EditText
+                android:id="@+id/AddEvent_nume"
+                android:layout_width="206dp"
+                android:layout_height="39dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="@string/add_event_nume" />
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="184dp"
+                android:layout_height="28dp"
+                android:layout_marginTop="24dp"
+                android:text="@string/AddEvent_ora_tv"
+                android:layout_marginLeft="20dp"/>
+            <EditText
+                android:id="@+id/AddEvent_ora"
+                android:layout_width="210dp"
+                android:layout_height="41dp"
+                android:layout_marginTop="24dp"
+                android:ems="10"
+                android:inputType="time"
+                android:layout_marginLeft="20dp"/>
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="210dp"
+                android:layout_height="31dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="24dp"
+                android:text="@string/AlegeImportanta" />
+
+
+            <SeekBar
+                android:id="@+id/sb_importantaEvent"
+                style="@style/Widget.AppCompat.SeekBar.Discrete"
+                android:layout_width="264dp"
+                android:layout_height="42dp"
+                android:max="10"
+                android:progress="3"
+                android:layout_marginLeft="20dp"/>
+
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="336dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="@string/AlegeData"
+                android:layout_marginLeft="20dp"/>
+
+            <DatePicker
+                android:id="@+id/Datepicker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="36dp"
+                android:layout_marginLeft="20dp"/>
+
+            <Button
+                android:id="@+id/AdaugaEvent_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="49dp"
+                android:layout_marginBottom="120dp"
+                android:background="#F3BA63"
+                android:layout_marginTop="24dp"
+                android:layout_marginLeft="200dp"
+                android:text="@string/AdaugaEvent" />
+
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

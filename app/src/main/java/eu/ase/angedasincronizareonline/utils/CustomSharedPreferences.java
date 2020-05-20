@@ -1,0 +1,21 @@
+package eu.ase.angedasincronizareonline.utils;
+
+import android.content.Context;
+import android.content.SharedPreferences;
+
+public class CustomSharedPreferences {
+    private static SharedPreferences preferences;
+    private static final String USER_ID = "userId";
+
+    public static void setIdToPreferences(Context context, String sharedPrefName, long id) {
+        preferences = context.getSharedPreferences(sharedPrefName, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putLong(USER_ID, id);
+        editor.apply();
+    }
+
+    public static long getIdFromPreferences(Context context, String sharedPrefName) {
+        preferences = context.getSharedPreferences(sharedPrefName, Context.MODE_PRIVATE);
+        return preferences.getLong(USER_ID, -1);
+    }
+}

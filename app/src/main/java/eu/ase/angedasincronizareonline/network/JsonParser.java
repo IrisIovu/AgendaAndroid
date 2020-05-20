@@ -11,8 +11,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import eu.ase.angedasincronizareonline.AddMeetingActivity;
-
 public class JsonParser {
 
 
@@ -22,15 +20,15 @@ public class JsonParser {
         }
         try {
             JSONObject jsonObject = new JSONObject(json);
-            List<Item> goalkeeper = getItemListFromJson(jsonObject
+            List<Item> room1 = getItemListFromJson(jsonObject
                     .getJSONArray("Room1"));
-            List<Item> center = getItemListFromJson(jsonObject
+            List<Item> room2 = getItemListFromJson(jsonObject
                     .getJSONArray("Room2"));
-            List<Item> inter = getItemListFromJson(jsonObject
+            List<Item> room3 = getItemListFromJson(jsonObject
                     .getJSONArray("Room3"));
-            List<Item> winger = getItemListFromJson(jsonObject
+            List<Item> room4 = getItemListFromJson(jsonObject
                     .getJSONArray("Room4"));
-            return new HttpResponse(goalkeeper, center, inter, winger);
+            return new HttpResponse(room1, room2, room3, room4);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -71,8 +69,7 @@ public class JsonParser {
         String description = object.getString("description");
         Date date = null;
         try {
-            date = new SimpleDateFormat(AddMeetingActivity
-                    .DATE_FORMAT,
+            date = new SimpleDateFormat("DD-MM-YYYY",
                     Locale.US).parse(object
                     .getString("date"));
         } catch (ParseException e) {

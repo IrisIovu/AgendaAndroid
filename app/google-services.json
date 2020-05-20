@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "942834364407",
+    "firebase_url": "https://agendasincronizareonline.firebaseio.com",
+    "project_id": "agendasincronizareonline",
+    "storage_bucket": "agendasincronizareonline.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:942834364407:android:f3641fab34028bee7e08f2",
+        "android_client_info": {
+          "package_name": "eu.ase.angedasincronizareonline"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "942834364407-dm4jo2lo8lbc729s2spsjk4e85orbmmu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBu0dSHNLoqAE1v2LBrfLwLktwWNV5fG1g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "942834364407-dm4jo2lo8lbc729s2spsjk4e85orbmmu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

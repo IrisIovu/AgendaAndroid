@@ -1,10 +1,10 @@
 package eu.ase.angedasincronizareonline;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import android.view.MenuItem;
 import android.view.View;
@@ -14,10 +14,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -26,25 +22,25 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.view.Menu;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import eu.ase.angedasincronizareonline.fragment.AboutFragment;
+import eu.ase.angedasincronizareonline.database.model.User;
+import eu.ase.angedasincronizareonline.database.service.UserService;
 import eu.ase.angedasincronizareonline.fragment.HomeFragment;
-import eu.ase.angedasincronizareonline.fragment.ListviewMeetingsFragment;
-import eu.ase.angedasincronizareonline.fragment.TransferMarketFragment;
-import eu.ase.angedasincronizareonline.fragment.ViewByDateFragment;
-import eu.ase.angedasincronizareonline.utils.Meeting;
+import eu.ase.angedasincronizareonline.fragment.ListEvents;
+import eu.ase.angedasincronizareonline.fragment.MeetingInfoJsonFragment;
+import eu.ase.angedasincronizareonline.utils.CustomSharedPreferences;
+import eu.ase.angedasincronizareonline.utils.Event;
 
 public class MainActivity extends AppCompatActivity {
-    public static final int REQUEST_CODE_ADD_MEETING= 200;
+    public static final int REQUEST_CODE_ADD_EVENT = 200;
     DrawerLayout drawerLayout;
-    FloatingActionButton fabAddMeeting;
+    FloatingActionButton fabAddEvent;
     NavigationView navigationView;
+    private User currentUser;
     Fragment currentFragment;
-    ArrayList<Meeting> meetings = new ArrayList<>();
+    ArrayList <Event> events = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,31 +49,50 @@ public class MainActivity extends AppCompatActivity {
         configNavigation();
         initComponents();
         openDefaultFragment(savedInstanceState);
+        getCurrentUser();
     }
 
     private void openDefaultFragment(Bundle savedInstanceState) {
         if (savedInstanceState == null) {
-            currentFragment = createListViewMeetingFragment();
+            currentFragment = createHomeFragment();
             openFragment();
             navigationView.setCheckedItem(R.id.main_nav_home);
         }
     }
+    private Fragment createHomeFragment() {
+        Fragment fragment = new ListEvents();
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList(ListEvents.EVENT_KEY, events);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
 
     private void initComponents() {
-        fabAddMeeting = findViewById(R.id.main_fab_add_meeting);
-        fabAddMeeting.setOnClickListener(new View.OnClickListener() {
+        fabAddEvent = findViewById(R.id.main_fab_add_meeting);
+        fabAddEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent =
+                Intent intent1 =
                         new Intent(getApplicationContext(),
-                                AddMeetingActivity.class);
-                startActivityForResult(intent,
-                        REQUEST_CODE_ADD_MEETING);
+                                AddEvent.class);
+                startActivityForResult(intent1, 200);
             }
         });
-
         navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(navigationItemEvent());
+    }
+    @SuppressLint("StaticFieldLeak")
+    private void deleteUser() {
+        new UserService.Delete(getApplicationContext()) {
+            @Override
+            protected void onPostExecute(Integer result) {
+                if (result == 0) {
+                    CustomSharedPreferences.setIdToPreferences(getApplicationContext(), RegisterActivity.SHARED_PREF_NAME, -1);
+                    Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
+                    startActivity(intent);
+                }
+            }
+        }.execute(currentUser);
     }
 
     private NavigationView
@@ -86,33 +101,38 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(
                     @NonNull MenuItem menuItem) {
-                if (menuItem.getItemId() == R.id.main_nav_list_meetings) {
-                    //optiune acasa
-                    currentFragment = createListViewMeetingFragment();
-                } else if (menuItem.getItemId() == R.id.main_nav_transfer_market) {
-                    //optiune Transfer Market
-                    currentFragment = new TransferMarketFragment();
-                } else if(menuItem.getItemId() == R.id.main_nav_about){
-                    //optiunea despre
-                    currentFragment = new AboutFragment();
+                if (menuItem.getItemId() == R.id.MeetingInfo) {
+                    currentFragment = new MeetingInfoJsonFragment();
                 }
                 else if(menuItem.getItemId() == R.id.main_nav_home)
                 {
                     currentFragment=new HomeFragment();
                 }
-                else{
-                    currentFragment = new ViewByDateFragment();
+                else if(menuItem.getItemId() == R.id.main_nav_list_events)
+                {
+                    currentFragment=createHomeFragment();
+                }
+                else if (menuItem.getItemId() == R.id.main_nav_vizualizareproiecte){
+                    Intent intent = new Intent(getApplicationContext(), ProjectFirebaseActivity.class);
+                    startActivity(intent);
                 }
 
-
-                //adaugare fragment
                 openFragment();
-                //inchidere meniu lateral
                 drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
             }
         };
     }
+    private void getCurrentUser() {
+        if (getIntent().getExtras() != null) {
+            currentUser = getIntent().getExtras().getParcelable(LoginActivity.CURRENT_USER);
+
+        }
+    }
+
+
+
+
 
     private void openFragment() {
         getSupportFragmentManager()
@@ -126,40 +146,26 @@ public class MainActivity extends AppCompatActivity {
                                     int resultCode,
                                     @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE_ADD_MEETING
+       if (requestCode == REQUEST_CODE_ADD_EVENT
                 && resultCode == RESULT_OK
                 && data != null) {
-            Meeting meeting = data.getParcelableExtra(AddMeetingActivity
-                    .ADD_MEETING_KEY);
-            if (meeting != null) {
-                Toast.makeText(getApplicationContext(),
-                        meeting.toString(),
-                        Toast.LENGTH_LONG).show();
-                meetings.add(meeting);
-                if (currentFragment instanceof ListviewMeetingsFragment) {
-                    ((ListviewMeetingsFragment) currentFragment).notifyInternal();
+            Event event = data.getParcelableExtra(AddEvent
+                    .ADD_EVENT_KEY);
+            if (event != null) {
+                events.add(event);
+                if (currentFragment instanceof ListEvents) {
+                    ((ListEvents) currentFragment).notifyInternal();
                 }
             }
         }
     }
 
-    private Fragment createListViewMeetingFragment() {
-        Fragment fragment = new ListviewMeetingsFragment();
-        Bundle bundle = new Bundle();
-        bundle.putParcelableArrayList(ListviewMeetingsFragment.MEETING_KEY, meetings);
-        fragment.setArguments(bundle);
-        return fragment;
-    }
+
 
     private void configNavigation() {
-        //initializare toolbar - bara de actiune
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        //initializare drawer layout - panou meniu lateral
         drawerLayout = findViewById(R.id.drawer_layout);
-        //legare meniu lateral cu bara actiune
-        // + eveniment de deschidere
-        //creare instanta utilitara
         ActionBarDrawerToggle actionBar =
                 new ActionBarDrawerToggle(
                         this,
@@ -167,9 +173,7 @@ public class MainActivity extends AppCompatActivity {
                         toolbar,
                         R.string.navigation_drawer_open,
                         R.string.navigation_drawer_close);
-        //atasare eveniment
         drawerLayout.addDrawerListener(actionBar);
-        //sincronizare actionBartoggle
         actionBar.syncState();
     }
 }

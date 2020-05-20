@@ -5,15 +5,18 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="1"
-    tools:context=".fragment.HomeFragment">
+    tools:context=".fragment.HomeFragment"
+    android:background="@drawable/bg_home">
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="     Aplicatia ajuta la sincronizarea activitatilor dintr-o
-         intreprindere in functie de numar de participanti,
- locatie si data."
-        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
-        android:textColor="@color/design_default_color_primary_dark"/>
+        android:id="@+id/TextHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="@string/HomeTextModificat"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="#FCFCFC" />
+
+
 </LinearLayout>
 
